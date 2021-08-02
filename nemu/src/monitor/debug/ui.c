@@ -37,6 +37,39 @@ static int cmd_q(char *args) {
   return -1;
 }
 
+static int cmd_si(char *args) {
+  /* extract the first argument */
+  char *arg = strtok(NULL, " ");
+  if(arg == NULL) {
+    cpu_exec(1);
+  }
+  else {
+    for(char *ch = arg; *ch; ch ++) assert(isdigit(*ch));
+    cpu_exec(atoi(arg));
+  }
+  return 0;
+}
+
+static int cmd_info(char *args) {
+  return -1;
+}
+
+static int cmd_x(char * args) {
+  return -1;  
+}
+
+static int cmd_p(char * args) {
+  return -1;  
+}
+
+static int cmd_w(char * args) {
+  return -1;  
+}
+
+static int cmd_d(char * args) {
+  return -1;  
+}
+
 static int cmd_help(char *args);
 
 static struct {
@@ -47,6 +80,12 @@ static struct {
   { "help", "Display informations about all supported commands", cmd_help },
   { "c", "Continue the execution of the program", cmd_c },
   { "q", "Exit NEMU", cmd_q },
+  { "si", "si [N], execute N instructions, N is 1 by default", cmd_si },
+  { "info", "info r/w, show all registers or watchpoints", cmd_info },
+  { "x", "x N EXP, print N bytes begin at [EXP]", cmd_x },
+  { "p", "p EXP, print the value of EXP", cmd_p },
+  { "w", "w EXP, create watchpoint for EXP", cmd_w },
+  { "d", "d N, delete Nth watchpoint", cmd_d },
 
   /* TODO: Add more commands */
 
@@ -87,14 +126,14 @@ void ui_mainloop() {
     char *str_end = str + strlen(str);
 
     /* extract the first token as the command */
-    char *cmd = strtok(str, " ");
+    char *cmd = strtok(str, " "); // 截取第一段有效字符，将其作为参数
     if (cmd == NULL) { continue; }
 
     /* treat the remaining string as the arguments,
      * which may need further parsing
      */
     char *args = cmd + strlen(cmd) + 1;
-    if (args >= str_end) {
+    if (args >= str_end) { // 指针的比大小，相当于位置的左右关系
       args = NULL;
     }
 
@@ -106,7 +145,7 @@ void ui_mainloop() {
     int i;
     for (i = 0; i < NR_CMD; i ++) {
       if (strcmp(cmd, cmd_table[i].name) == 0) {
-        if (cmd_table[i].handler(args) < 0) { return; }
+        if (cmd_table[i].handler(args) < 0) { return; } // 如果某个指令处理函数返回负数，说明产生错误，直接终止ui循环。
         break;
       }
     }
