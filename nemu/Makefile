@@ -56,7 +56,7 @@ endif
 OBJ_DIR ?= $(BUILD_DIR)/obj-$(ISA)-$(ENGINE)$(SO)
 BINARY ?= $(BUILD_DIR)/$(ISA)-$(NAME)-$(ENGINE)$(SO)
 
-include Makefile.git
+include Makefile.git #just for commit
 
 .DEFAULT_GOAL = app
 
