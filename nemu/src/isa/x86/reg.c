@@ -3,6 +3,9 @@
 #include <time.h>
 #include "local-include/reg.h"
 
+#include <stdio.h>
+#include <memory/paddr.h>
+
 const char *regsl[] = {"eax", "ecx", "edx", "ebx", "esp", "ebp", "esi", "edi"};
 const char *regsw[] = {"ax", "cx", "dx", "bx", "sp", "bp", "si", "di"};
 const char *regsb[] = {"al", "cl", "dl", "bl", "ah", "ch", "dh", "bh"};
@@ -42,6 +45,18 @@ void reg_test() {
 }
 
 void isa_reg_display() {
+  printf("++++pc : 0x%x\n", cpu.pc);
+  printf("eax: 0x%x\n", cpu.eax);
+  printf("ecx: 0x%x\n", cpu.ecx);
+  printf("edx: 0x%x\n", cpu.edx);
+  printf("ebx: 0x%x\n", cpu.ebx);
+  printf("esp: 0x%x\n", cpu.esp);
+  printf("ebp: 0x%x\n", cpu.ebp);
+  printf("esi: 0x%x\n", cpu.esi);
+  printf("edi: 0x%x\n", cpu.edi);
+  printf("next instruction: ");
+  for(int i = 0; i < 10; i ++) printf("%x ", paddr_read(cpu.pc + i, 1));
+  printf("\n----\n");
 }
 
 word_t isa_reg_str2val(const char *s, bool *success) {
