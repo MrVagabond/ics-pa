@@ -6,6 +6,7 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 
+#include <memory/paddr.h>
 void cpu_exec(uint64_t);
 int is_batch_mode();
 
@@ -68,7 +69,9 @@ static int cmd_info(char *args) {
     printf("ebp: 0x%x\n", cpu.ebp);
     printf("esi: 0x%x\n", cpu.esi);
     printf("edi: 0x%x\n", cpu.edi);
-    printf("----\n");
+    printf("next instruction: ");
+    for(int i = 0; i < 10; i ++) printf("%x ", paddr_read(cpu.pc, 1));
+    printf("\n----\n");
   }
   else if(arg[0] == 'w') {
     panic("TODO");
