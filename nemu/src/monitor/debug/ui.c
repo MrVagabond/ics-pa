@@ -37,6 +37,8 @@ static int cmd_q(char *args) {
   return -1;
 }
 
+static int cmd_help(char *args);
+
 static int cmd_si(char *args) {
   /* extract the first argument */
   char *arg = strtok(NULL, " ");
@@ -51,26 +53,55 @@ static int cmd_si(char *args) {
 }
 
 static int cmd_info(char *args) {
-  return -1;
+  /* extract the first argument */
+  char *arg = strtok(NULL, " ");
+  if(arg == NULL) {
+    cmd_help("info");
+  }
+  else if(arg[0] == 'r') {
+    printf("++++pc : 0x%x\n", cpu.pc);
+    printf("eax: 0x%x\n", cpu.eax);
+    printf("ecx: 0x%x\n", cpu.ecx);
+    printf("edx: 0x%x\n", cpu.edx);
+    printf("ebx: 0x%x\n", cpu.ebx);
+    printf("esp: 0x%x\n", cpu.esp);
+    printf("ebp: 0x%x\n", cpu.ebp);
+    printf("esi: 0x%x\n", cpu.esi);
+    printf("edi: 0x%x\n", cpu.edi);
+    printf("----\n");
+  }
+  else if(arg[0] == 'w') {
+    panic("TODO");
+  }
+  else {
+    cmd_help("info");
+  }
+  return 0;
 }
 
 static int cmd_x(char * args) {
+  /* extract the first argument */
+  //char *arg = strtok(NULL, " ");
   return -1;  
 }
 
 static int cmd_p(char * args) {
+  /* extract the first argument */
+  //char *arg = strtok(NULL, " ");
   return -1;  
 }
 
 static int cmd_w(char * args) {
+  /* extract the first argument */
+  //char *arg = strtok(NULL, " ");
   return -1;  
 }
 
 static int cmd_d(char * args) {
+  /* extract the first argument */
+  //char *arg = strtok(NULL, " ");
   return -1;  
 }
-
-static int cmd_help(char *args);
 
 static struct {
   char *name;
