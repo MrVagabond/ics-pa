@@ -70,7 +70,7 @@ static int cmd_info(char *args) {
     printf("esi: 0x%x\n", cpu.esi);
     printf("edi: 0x%x\n", cpu.edi);
     printf("next instruction: ");
-    for(int i = 0; i < 10; i ++) printf("%x ", paddr_read(cpu.pc, 1));
+    for(int i = 0; i < 10; i ++) printf("%x ", paddr_read(cpu.pc + i, 1));
     printf("\n----\n");
   }
   else if(arg[0] == 'w') {
