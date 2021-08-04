@@ -10,13 +10,19 @@ const char *regs[] = {
   "s8", "s9", "s10", "s11", "t3", "t4", "t5", "t6"
 };
 
+static word_t zj_bitcut(int h, int l, word_t w) {
+  assert(h >= l);
+  word_t ans = (1 << (h - l + 1)) - 1;
+  return ans & (w >> l);
+}
+
 static void zj_print_opcode(word_t instr) {
   for(int i = 6; i >= 0; i --) {
     printf("\033[40;44m%d\033[0m", (instr >> i) & 1 ? 1 : 0);
   }
   word_t opcode = instr & 0b1111111;
   switch (opcode) {
-    case 0b0110111 : printf("，这是一个lui指令"); break;
+    case 0b0110111 : printf(", lui, x[%d] <- %d", zj_bitcut(11, 7, instr), zj_bitcut(31, 12, instr) << 12); break;
   }
 }
 
