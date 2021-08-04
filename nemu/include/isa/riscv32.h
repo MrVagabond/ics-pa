@@ -26,7 +26,7 @@ typedef struct {
       uint32_t rd        : 5;
       uint32_t funct3    : 3;
       uint32_t rs1       : 5;
-      int32_t  simm11_0  :12;
+      int32_t  simm11_0  :12; // 这个也是直接符号扩展了
     } i;
     struct {
       uint32_t opcode1_0 : 2;
@@ -35,7 +35,7 @@ typedef struct {
       uint32_t funct3    : 3;
       uint32_t rs1       : 5;
       uint32_t rs2       : 5;
-      int32_t  simm11_5  : 7;
+      int32_t  simm11_5  : 7; // 这个直接给符号扩展了
     } s;
     struct {
       uint32_t opcode1_0 : 2;
