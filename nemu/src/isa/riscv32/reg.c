@@ -25,9 +25,9 @@ static void zj_print_opcode(word_t instr) {
     case 0b0110111 : printf(", lui, x[%d] <- 0x%x", zj_bitcut(11, 7, instr), zj_bitcut(31, 12, instr) << 12); break;
     case 0b0100011 : printf(", s");
       switch (zj_bitcut(14, 12, instr)) {
-        case 0b000 : printf("b"); break;
-        case 0b001 : printf("h"); break;
-        case 0b010 : printf("w"); break;
+        case 0b000 : printf("b, M[x[%d] + sext(0x%x)] <- x[%d][7:0]", zj_bitcut(19, 15, instr), (zj_bitcut(31, 25, instr) << 5) | zj_bitcut(11, 7, instr), zj_bitcut(19, 15, instr)); break;
+        case 0b001 : printf("h, M[x[%d] + sext(0x%x)] <- x[%d][15:0]", zj_bitcut(19, 15, instr), (zj_bitcut(31, 25, instr) << 5) | zj_bitcut(11, 7, instr), zj_bitcut(19, 15, instr)); break;
+        case 0b010 : printf("w, M[x[%d] + sext(0x%x)] <- x[%d][31:0]", zj_bitcut(19, 15, instr), (zj_bitcut(31, 25, instr) << 5) | zj_bitcut(11, 7, instr), zj_bitcut(19, 15, instr)); break;
       }
       break;
   }
