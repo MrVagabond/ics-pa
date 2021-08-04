@@ -23,6 +23,13 @@ static void zj_print_opcode(word_t instr) {
   word_t opcode = instr & 0b1111111;
   switch (opcode) {
     case 0b0110111 : printf(", lui, x[%d] <- 0x%x", zj_bitcut(11, 7, instr), zj_bitcut(31, 12, instr) << 12); break;
+    case 0b0100011 : printf(", s");
+      switch (zj_bitcut(14, 12, instr)) {
+        case 0b000 : printf("b"); break;
+        case 0b001 : printf("h"); break;
+        case 0b010 : printf("w"); break;
+      }
+      break;
   }
 }
 
