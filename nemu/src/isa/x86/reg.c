@@ -4,7 +4,7 @@
 #include "local-include/reg.h"
 
 #include <stdio.h>
-#include <memory/paddr.h>
+#include <memory/vaddr.h>
 
 const char *regsl[] = {"eax", "ecx", "edx", "ebx", "esp", "ebp", "esi", "edi"};
 const char *regsw[] = {"ax", "cx", "dx", "bx", "sp", "bp", "si", "di"};
@@ -55,7 +55,7 @@ void isa_reg_display() {
   printf("esi: 0x%x\n", cpu.esi);
   printf("edi: 0x%x\n", cpu.edi);
   printf("next instruction: ");
-  for(int i = 0; i < 10; i ++) printf("%x ", paddr_read(cpu.pc + i, 1));
+  for(int i = 0; i < 10; i ++) printf("%x ", vaddr_read(cpu.pc + i, 1));
   printf("\n----\n");
 }
 

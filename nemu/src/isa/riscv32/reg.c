@@ -1,7 +1,7 @@
 #include <isa.h>
 #include "local-include/reg.h"
 
-#include <memory/paddr.h>
+#include <memory/vaddr.h>
 
 const char *regs[] = {
   "$0", "ra", "sp", "gp", "tp", "t0", "t1", "t2",
@@ -44,8 +44,8 @@ static void zj_print_opcode(word_t instr) {
 }
 
 void isa_reg_display() {
-  printf("+++++\033[40;44mpc = 0x%x\033[0m, next instruction is \033[40;44m%x\033[0m(", cpu.pc, paddr_read(cpu.pc, 4));
-  zj_print_opcode(paddr_read(cpu.pc, 4));
+  printf("+++++\033[40;44mpc = 0x%x\033[0m, next instruction is \033[40;44m%x\033[0m(", cpu.pc, vaddr_read(cpu.pc, 4));
+  zj_print_opcode(vaddr_read(cpu.pc, 4));
   printf(")\n");
 
   int index = 0;

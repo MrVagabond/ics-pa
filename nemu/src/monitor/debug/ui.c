@@ -6,7 +6,7 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 
-#include <memory/paddr.h>
+#include <memory/vaddr.h>
 void cpu_exec(uint64_t);
 int is_batch_mode();
 
@@ -83,7 +83,7 @@ static int cmd_x(char * args) {
     paddr_t addr = atoi(arg);
     printf("%x: ", addr);
     for(int i = 0; i < n; i ++) {
-      printf("\033[43;34m%x\033[0m ", paddr_read(addr + i, 1));
+      printf("\033[43;34m%x\033[0m ", vaddr_read(addr + i, 1));
     }
     printf("\n");
   }
