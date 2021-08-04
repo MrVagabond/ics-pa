@@ -1,6 +1,8 @@
 #include <isa.h>
 #include "local-include/reg.h"
 
+#include <memory/paddr.h>
+
 const char *regs[] = {
   "$0", "ra", "sp", "gp", "tp", "t0", "t1", "t2",
   "s0", "s1", "a0", "a1", "a2", "a3", "a4", "a5",
@@ -9,6 +11,16 @@ const char *regs[] = {
 };
 
 void isa_reg_display() {
+  printf("+++++pc = 0x%x, next instruction is %x\n", cpu.pc, paddr_read(cpu.pc, 4));
+  int index = 0;
+  for(int i = 0; i < 4; i ++) {
+    for(int j = 0; j < 8; j ++) {
+      printf("%s:0x%x ", regs[index], cpu.gpr[index]._32);
+      index ++;
+    }
+    printf("\n");
+  }
+  printf("-----\n");
 }
 
 word_t isa_reg_str2val(const char *s, bool *success) {
