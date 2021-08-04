@@ -6,6 +6,7 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 
+#include <memory/paddr.h>
 void cpu_exec(uint64_t);
 int is_batch_mode();
 
@@ -72,8 +73,20 @@ static int cmd_info(char *args) {
 
 static int cmd_x(char * args) {
   /* extract the first argument */
-  //char *arg = strtok(NULL, " ");
-  return -1;  
+  char *arg = strtok(NULL, " ");
+  if(arg == NULL) {
+    cmd_help("x");
+  }
+  else {
+    int n = atoi(arg);
+    arg = strtok(NULL, " ");
+    paddr_t addr = atoi(arg);
+    for(int i = 0; i < n; i ++) {
+      printf("\033[43;34m%x\033[0m ", paddr_read(addr + i, 1));
+    }
+    printf("\n");
+  }
+  return 0;  
 }
 
 static int cmd_p(char * args) {
