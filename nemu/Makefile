@@ -110,7 +110,7 @@ run: run-env
 gdb: run-env
 	$(call git_commit, "gdb")
 # gdb -s $(BINARY) --args $(NEMU_EXEC)
-	gdb -s $(BINARY) --args $(NEMU_EXEC) -q -x gdb-script
+	gdb -q -x gdb-script -s $(BINARY) --args $(NEMU_EXEC)
 
 $(DIFF_REF_SO):
 	$(MAKE) -C $(DIFF_REF_PATH) $(MKFLAGS)
