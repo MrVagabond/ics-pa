@@ -15,7 +15,7 @@ void isa_reg_display() {
   int index = 0;
   for(int i = 0; i < 4; i ++) {
     for(int j = 0; j < 8; j ++) {
-      printf("\033[47;34m%s\033[0m:\033[1m0x%x\033[0m ", regs[index], cpu.gpr[index]._32);
+      printf("\033[47;35m%s\033[0m:\033[1m0x%x\033[0m ", regs[index], cpu.gpr[index]._32);
       index ++;
     }
     printf("\n");
