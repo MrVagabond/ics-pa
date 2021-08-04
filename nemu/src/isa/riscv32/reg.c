@@ -11,11 +11,11 @@ const char *regs[] = {
 };
 
 void isa_reg_display() {
-  printf("+++++\033[40;34mpc = 0x%x\033[0m, next instruction is %x\n", cpu.pc, paddr_read(cpu.pc, 4));
+  printf("+++++\033[40;44mpc = 0x%x\033[0m, next instruction is %x\n", cpu.pc, paddr_read(cpu.pc, 4));
   int index = 0;
   for(int i = 0; i < 4; i ++) {
     for(int j = 0; j < 8; j ++) {
-      printf("%s:0x%x ", regs[index], cpu.gpr[index]._32);
+      printf("\033[47;34m%s\033[0m:\033[1m0x%x\033[0m ", regs[index], cpu.gpr[index]._32);
       index ++;
     }
     printf("\n");
