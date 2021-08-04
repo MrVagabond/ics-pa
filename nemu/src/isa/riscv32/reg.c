@@ -11,7 +11,7 @@ const char *regs[] = {
 };
 
 static void zj_print_opcode(word_t instr) {
-  for(int i = 5; i >= 0; i --) {
+  for(int i = 6; i >= 0; i --) {
     printf("\033[40;44m%d\033[0m", (instr >> i) & 1 ? 1 : 0);
   }
 }
