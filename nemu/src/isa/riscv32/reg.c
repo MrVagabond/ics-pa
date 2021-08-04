@@ -34,7 +34,7 @@ static void zj_print_opcode(word_t instr) {
       switch (zj_bitcut(14, 12, instr)) {
         case 0b000 : printf("b"); break;
         case 0b001 : printf("h"); break;
-        case 0b010 : printf("w"); break;
+        case 0b010 : printf("w, x[%d] <- M[x[%d] + sext(0x%x)][31:0]", zj_bitcut(11, 7, instr), zj_bitcut(19, 15, instr), zj_bitcut(31, 20, instr)); break;
         case 0b100 : printf("bu"); break;
         case 0b101 : printf("hu"); break;
       }
