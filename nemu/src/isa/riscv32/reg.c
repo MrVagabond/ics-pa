@@ -39,7 +39,7 @@ static void zj_print_opcode(word_t instr) {
         case 0b101 : printf("hu"); break;
       }
       break;
-    case 0b1101011 : printf("nemu_trap"); break;
+    case 0b1101011 : printf(", nemu_trap"); break;
   }
 }
 
