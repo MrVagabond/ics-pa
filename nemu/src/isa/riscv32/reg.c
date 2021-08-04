@@ -12,13 +12,14 @@ const char *regs[] = {
 
 static void zj_print_opcode(word_t instr) {
   for(int i = 5; i >= 0; i --) {
-    printf("(\033[40;44m%d\033[0m)", (instr >> i) & 1 ? 1 : 0);
+    printf("\033[40;44m%d\033[0m", (instr >> i) & 1 ? 1 : 0);
   }
 }
 
 void isa_reg_display() {
-  printf("+++++\033[40;44mpc = 0x%x\033[0m, next instruction is \033[40;44m%x\033[0m\n", cpu.pc, paddr_read(cpu.pc, 4));
+  printf("+++++\033[40;44mpc = 0x%x\033[0m, next instruction is \033[40;44m%x\033[0m(", cpu.pc, paddr_read(cpu.pc, 4));
   zj_print_opcode(paddr_read(cpu.pc, 4));
+  printf(")\n");
 
   int index = 0;
   for(int i = 0; i < 4; i ++) {
