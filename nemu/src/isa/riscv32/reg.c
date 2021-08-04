@@ -14,6 +14,10 @@ static void zj_print_opcode(word_t instr) {
   for(int i = 6; i >= 0; i --) {
     printf("\033[40;44m%d\033[0m", (instr >> i) & 1 ? 1 : 0);
   }
+  word_t opcode = instr & 0b1111111;
+  switch (opcode) {
+    case 0b0110111 : printf("，这是一个lui指令"); break;
+  }
 }
 
 void isa_reg_display() {
