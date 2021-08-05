@@ -48,14 +48,14 @@ static inline def_EHelper(grp_01100) {
         EXW (0b0100000, sub, 4)
       }
       break;
-    EXW (0b001, sll, 4)
+    //EXW (0b001, sll, 4)
     EXW (0b010, slt, 4)
     EXW (0b011, sltu, 4)
     EXW (0b100, xor, 4)
     case 0b101:
       switch(s->isa.instr.r.funct7) {
-        EXW (0b0000000, srl, 4)
-        EXW (0b0100000, sra, 4)
+        //EXW (0b0000000, srl, 4)
+        //EXW (0b0100000, sra, 4)
       }
     EXW (0b110, or, 4)
     EXW (0b111, and, 4)
