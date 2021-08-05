@@ -60,8 +60,10 @@ void difftest_init(int port) {
     }
 
     close(STDIN_FILENO);
-    printf("\033[47;31mexec: %s\033[0m\n", ISA_QEMU_BIN);
-    execlp(ISA_QEMU_BIN, ISA_QEMU_BIN, ISA_QEMU_ARGS "-S", "-gdb", buf, "-nographic", NULL);
+    // printf("\033[47;31mexec: %s\033[0m\n", ISA_QEMU_BIN);
+
+    // qemu-system-riscv32其实是qemu-system的一个子命令啊，我这脑子。execlp就是从PATH环境变量中找可执行文件的。
+    execlp(ISA_QEMU_BIN, ISA_QEMU_BIN, ISA_QEMU_ARGS "-S", "-gdb", buf, "-nographic", NULL); 
     perror("exec");
     assert(0);
   }
