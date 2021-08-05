@@ -64,3 +64,12 @@ static inline def_EHelper(bne) {
   }
   print_asm_template3(bne);
 }
+
+static inline def_EHelper(sltu) {
+  if(*(word_t *)dsrc1 < *(word_t *)dsrc2) {
+    *ddest = 1;
+  } else {
+    *ddest = 0;
+  }
+  print_asm_template3(sltu);
+}

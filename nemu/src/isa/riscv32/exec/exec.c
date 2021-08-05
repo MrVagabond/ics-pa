@@ -39,7 +39,7 @@ static inline def_EHelper(grp_01100) {
       break;
     case 0b001: 
     case 0b010:
-    case 0b011:
+    EXW (0b011, sltu, 4)
     case 0b100:
     case 0b101:
     case 0b110:
