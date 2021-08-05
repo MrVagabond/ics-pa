@@ -25,9 +25,15 @@ static inline def_EHelper(store) {
 static inline def_EHelper(grp_00100) {
   switch (s->isa.instr.s.funct3) {
     EXW (0b000, addi, 4)
+    EXW (0b001, slli, 4)
     EXW (0b010, slti, 4)
     EXW (0b011, sltiu, 4)
     EXW (0b100, xori, 4)
+    case 0b101:
+      switch(zj_bitcut(31, 25, s->isa.instr.val)) {
+        EXW (0b0000000, srli, 4)
+        EXW (0b0100000, srai, 4)
+      }
     EXW (0b110, ori, 4)
     EXW (0b111, andi, 4)
     default: exec_inv(s);

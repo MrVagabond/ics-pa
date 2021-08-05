@@ -130,3 +130,27 @@ static inline def_EHelper(sra) {
   *ddest = (*(sword_t *)dsrc1) >> (*s0);
   print_asm_template3(sll);
 }
+
+static inline def_EHelper(slli) {
+  *s0 = s->isa.instr.val;
+  Assert(zj_bitcut(25, 25, *s0) == 0, "not valid slli\n");
+  *s0 = zj_bitcut(25, 20, *s0);
+  *ddest = (*dsrc1) << (*s0);
+  print_asm_template3(slli);
+}
+
+static inline def_EHelper(srli) {
+  *s0 = s->isa.instr.val;
+  Assert(zj_bitcut(25, 25, *s0) == 0, "not valid srli\n");
+  *s0 = zj_bitcut(25, 20, *s0);
+  *ddest = (*(word_t *)dsrc1) >> (*s0);
+  print_asm_template3(srli);
+}
+
+static inline def_EHelper(srai) {
+  *s0 = s->isa.instr.val;
+  Assert(zj_bitcut(25, 25, *s0) == 0, "not valid srai\n");
+  *s0 = zj_bitcut(25, 20, *s0);
+  *ddest = (*(sword_t *)dsrc1) >> (*s0);
+  print_asm_template3(srai);
+}
