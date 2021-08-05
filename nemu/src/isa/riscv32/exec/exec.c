@@ -32,12 +32,13 @@ static inline void fetch_decode_exec(DecodeExecState *s) {
   Assert(s->isa.instr.i.opcode1_0 == 0x3, "Invalid instruction");
   switch (s->isa.instr.i.opcode6_2) {
     IDEX (0b00000, I, load)
+    IDEX (0b00100, I, grp_00100) //
+    IDEXW (0b00101, U, auipc, 4) //
     IDEX (0b01000, S, store)
     IDEX (0b01101, U, lui)
+    IDEXW (0b11001, I, jalr, 4) //
     EX   (0b11010, nemu_trap)
-    IDEX (0b00100, I, grp_00100)
-    IDEXW (0b00101, U, auipc, 4)
-    IDEXW (0b11011, J, jal, 4)
+    IDEXW (0b11011, J, jal, 4) //
     default: exec_inv(s);
   }
 }
