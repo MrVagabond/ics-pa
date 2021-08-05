@@ -33,6 +33,20 @@ static inline def_EHelper(sltiu) {
   print_asm_template3(sltiu);
 }
 
+static inline def_EHelper(xori) {
+  rtl_xori(s, ddest, dsrc1, id_src2->simm);
+  print_asm_template3(xori);
+}
+
+static inline def_EHelper(ori) {
+  rtl_ori(s, ddest, dsrc1, id_src2->simm);
+  print_asm_template3(ori);
+}
+
+static inline def_EHelper(andi) {
+  rtl_andi(s, ddest, dsrc1, id_src2->simm);
+  print_asm_template3(andi);
+}
 
 
 // 纯寄存器操作的指令

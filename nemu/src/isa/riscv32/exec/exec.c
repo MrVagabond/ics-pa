@@ -27,6 +27,9 @@ static inline def_EHelper(grp_00100) {
     EXW (0b000, addi, 4)
     EXW (0b010, slti, 4)
     EXW (0b011, sltiu, 4)
+    EXW (0b100, xori, 4)
+    EXW (0b110, ori, 4)
+    EXW (0b111, andi, 4)
     default: exec_inv(s);
   }
 }
@@ -50,6 +53,7 @@ static inline def_EHelper(grp_01100) {
       }
     EXW (0b110, or, 4)
     EXW (0b111, and, 4)
+    default: exec_inv(s);
   }
 }
 
