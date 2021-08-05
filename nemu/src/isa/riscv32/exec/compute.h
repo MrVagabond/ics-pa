@@ -46,6 +46,21 @@ static inline def_EHelper(sub) {
   print_asm_template2(sub);
 }
 
+static inline def_EHelper(xor) {
+  rtl_xor(s, ddest, dsrc1, dsrc2);
+  print_asm_template3(xor);
+}
+
+static inline def_EHelper(or) {
+  rtl_or(s, ddest, dsrc1, dsrc2);
+  print_asm_template3(or);
+}
+
+static inline def_EHelper(and) {
+  rtl_and(s, ddest, dsrc1, dsrc2);
+  print_asm_template3(and);
+}
+
 
 // 比较类的指令
 
@@ -72,4 +87,32 @@ static inline def_EHelper(sltu) {
     *ddest = 0;
   }
   print_asm_template3(sltu);
+}
+
+static inline def_EHelper(slt) {
+  if(*(sword_t *)dsrc1 < *(sword_t *)dsrc2) {
+    *ddest = 1;
+  } else {
+    *ddest = 0;
+  }
+  print_asm_template3(slt);
+}
+
+// 移位指令
+static inline def_EHelper(sll) {
+  *s0 = *dsrc2 & 0b11111;
+  *ddest = (*dsrc1) << (*s0);
+  print_asm_template3(sll);
+}
+
+static inline def_EHelper(srl) {
+  *s0 = *dsrc2 & 0b11111;
+  *ddest = (*(word_t *)dsrc1) >> (*s0);
+  print_asm_template3(srl);
+}
+
+static inline def_EHelper(sra) {
+  *s0 = *dsrc2 & 0b11111;
+  *ddest = (*(sword_t *)dsrc1) >> (*s0);
+  print_asm_template3(sll);
 }
