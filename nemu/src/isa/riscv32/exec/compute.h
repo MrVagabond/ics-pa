@@ -94,6 +94,40 @@ static inline def_EHelper(bne) {
   print_asm_template3(bne);
 }
 
+
+static inline def_EHelper(blt) {
+  if((*(sword_t *)dsrc1) < (*(sword_t *)dsrc2)) {
+    rtl_addi(s, s0, &cpu.pc, id_dest->simm);
+    rtl_jr(s, s0);
+  }
+  print_asm_template3(blt);
+}
+
+static inline def_EHelper(bge) {
+  if((*(sword_t *)dsrc1) >= (*(sword_t *)dsrc2)) {
+    rtl_addi(s, s0, &cpu.pc, id_dest->simm);
+    rtl_jr(s, s0);
+  }
+  print_asm_template3(bge);
+}
+
+static inline def_EHelper(bltu) {
+  if((*(word_t *)dsrc1) < (*(word_t *)dsrc2)) {
+    rtl_addi(s, s0, &cpu.pc, id_dest->simm);
+    rtl_jr(s, s0);
+  }
+  print_asm_template3(bltu);
+}
+
+static inline def_EHelper(bgeu) {
+  if((*(word_t *)dsrc1) >= (*(word_t *)dsrc2)) {
+    rtl_addi(s, s0, &cpu.pc, id_dest->simm);
+    rtl_jr(s, s0);
+  }
+  print_asm_template3(bgeu);
+}
+
+
 static inline def_EHelper(sltu) {
   if(*(word_t *)dsrc1 < *(word_t *)dsrc2) {
     *ddest = 1;
@@ -111,6 +145,8 @@ static inline def_EHelper(slt) {
   }
   print_asm_template3(slt);
 }
+
+
 
 // 移位指令
 static inline def_EHelper(sll) {
