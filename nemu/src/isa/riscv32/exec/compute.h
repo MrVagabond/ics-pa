@@ -56,3 +56,11 @@ static inline def_EHelper(beq) {
   }
   print_asm_template3(beq);
 }
+
+static inline def_EHelper(bne) {
+  if(*dsrc1 != *dsrc2) {
+    rtl_addi(s, s0, &cpu.pc, id_dest->simm);
+    rtl_jr(s, s0);
+  }
+  print_asm_template3(bne);
+}

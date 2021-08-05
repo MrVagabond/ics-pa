@@ -50,6 +50,7 @@ static inline def_EHelper(grp_01100) {
 static inline def_EHelper(grp_11000) {
   switch(s->isa.instr.b.funct3) {
     EXW(0b000, beq, 4)
+    EXW(0b001, bne, 4)
     default: exec_inv(s);
   }
 }
