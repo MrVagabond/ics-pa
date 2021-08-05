@@ -48,10 +48,10 @@ void init_difftest(char *ref_so_file, long img_size, int port) {
   assert(ref_so_file != NULL);
 
   void *handle;
-  handle = dlopen(ref_so_file, RTLD_LAZY | RTLD_DEEPBIND);
+  handle = dlopen(ref_so_file, RTLD_LAZY | RTLD_DEEPBIND); // dlopen以指定模式打开指定的动态链接库文件
   assert(handle);
 
-  ref_difftest_memcpy_from_dut = dlsym(handle, "difftest_memcpy_from_dut");
+  ref_difftest_memcpy_from_dut = dlsym(handle, "difftest_memcpy_from_dut"); // dlsym根据动态链接库操作句柄与符号，返回符号对应的地址 
   assert(ref_difftest_memcpy_from_dut);
 
   ref_difftest_getregs = dlsym(handle, "difftest_getregs");
