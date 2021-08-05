@@ -4,6 +4,7 @@ static inline def_EHelper(jal) {
     rtl_addi(s, s0, &cpu.pc, id_src1->simm);
     // printf("\033[43;34ms0 is 0x%x\033[0m\n", *s0);
     rtl_jr(s, s0);
+    print_asm_template2(jal);
 }
 
 static inline def_EHelper(jalr) {
@@ -12,4 +13,5 @@ static inline def_EHelper(jalr) {
     *s1 = *s1 & ~1;
     rtl_jr(s, s1);
     *ddest = *s0;
+    print_asm_template3(jalr);
 }
