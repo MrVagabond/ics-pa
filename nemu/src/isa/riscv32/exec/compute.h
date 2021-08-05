@@ -45,3 +45,14 @@ static inline def_EHelper(sub) {
   rtl_sub(s, ddest, dsrc1, dsrc2);
   print_asm_template2(sub);
 }
+
+
+// 比较类的指令
+
+static inline def_EHelper(beq) {
+  if(*dsrc1 == *dsrc2) {
+    rtl_addi(s, s0, &cpu.pc, id_dest->simm);
+    rtl_jr(s, s0);
+  }
+  print_asm_template3(beq);
+}

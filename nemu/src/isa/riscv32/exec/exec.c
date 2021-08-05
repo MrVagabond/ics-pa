@@ -47,6 +47,13 @@ static inline def_EHelper(grp_01100) {
   }
 }
 
+static inline def_EHelper(grp_11000) {
+  switch(s->isa.instr.b.funct3) {
+    EXW(0b000, beq, 4)
+    default: exec_inv(s);
+  }
+}
+
 static inline void fetch_decode_exec(DecodeExecState *s) {
   s->isa.instr.val = instr_fetch(&s->seq_pc, 4);
   Assert(s->isa.instr.i.opcode1_0 == 0x3, "Invalid instruction");
@@ -57,6 +64,7 @@ static inline void fetch_decode_exec(DecodeExecState *s) {
     IDEX (0b01000, S, store)
     IDEX (0b01100, R, grp_01100) //
     IDEX (0b01101, U, lui)
+    IDEX (0b11000, B, grp_11000) //
     IDEXW (0b11001, I, jalr, 4) //
     EX   (0b11010, nemu_trap)
     IDEXW (0b11011, J, jal, 4) //
