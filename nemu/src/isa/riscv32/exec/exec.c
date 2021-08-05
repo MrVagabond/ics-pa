@@ -63,7 +63,7 @@ static inline def_EHelper(grp_01100) {
         //EXW (0b0100000, sra, 4)
       }
       break; // important!!!
-    //EXW (0b110, or, 4)
+    EXW (0b110, or, 4)
     EXW (0b111, and, 4)
     default: exec_inv(s);
   }
