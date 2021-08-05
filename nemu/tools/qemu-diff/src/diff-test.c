@@ -60,6 +60,7 @@ void difftest_init(int port) {
     }
 
     close(STDIN_FILENO);
+    printf("\033[47;31mexec: %s\033[0m\n", ISA_QEMU_BIN);
     execlp(ISA_QEMU_BIN, ISA_QEMU_BIN, ISA_QEMU_ARGS "-S", "-gdb", buf, "-nographic", NULL);
     perror("exec");
     assert(0);
