@@ -23,6 +23,8 @@ static inline def_EHelper(store) {
 static inline def_EHelper(grp_00100) {
   switch (s->isa.instr.s.funct3) {
     EXW (0b000, addi, 4)
+    EXW (0b010, slti, 4)
+    EXW (0b011, sltiu, 4)
     default: exec_inv(s);
   }
 }
@@ -31,8 +33,8 @@ static inline def_EHelper(grp_01100) {
   switch (s->isa.instr.r.funct3) {
     case 0b000:
       switch(s->isa.instr.r.funct7) {
-        EXW(0b0000000, add, 4)
-        EXW(0b0100000, sub, 4)
+        EXW (0b0000000, add, 4)
+        EXW (0b0100000, sub, 4)
       }
       break;
     case 0b001: 

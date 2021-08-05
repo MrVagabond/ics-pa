@@ -1,3 +1,4 @@
+// 含有立即数的指令
 static inline def_EHelper(lui) {
   rtl_li(s, ddest, id_src1->imm);
   print_asm_template2(lui);
@@ -14,6 +15,27 @@ static inline def_EHelper(auipc) {
   print_asm_template2(auipc);
 }
 
+static inline def_EHelper(slti) {
+  if(*(sword_t *)dsrc1 < id_src2->simm) {
+    *ddest = 1;
+  } else {
+    *ddest = 0;
+  }
+  print_asm_template3(slti);
+}
+
+static inline def_EHelper(sltiu) {
+  if(*(word_t *)dsrc1 < (word_t)(id_src2->simm)) {
+    *ddest = 1;
+  } else {
+    *ddest = 0;
+  }
+  print_asm_template3(sltiu);
+}
+
+
+
+// 纯寄存器操作的指令
 static inline def_EHelper(add) {
   rtl_add(s, ddest, dsrc1, dsrc2);
   print_asm_template3(add);
