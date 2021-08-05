@@ -15,7 +15,8 @@ def_EHelper(inv) {
       cpu.pc, instr[0], instr[1]);\
   zj_print_opcode(instr[0]);
   printf("\n");
-  
+  isa_reg_display();
+
   display_inv_msg(cpu.pc);
 
   rtl_exit(NEMU_ABORT, cpu.pc, -1);
