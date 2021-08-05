@@ -32,10 +32,11 @@ static inline def_EHelper(grp_00100) {
     case 0b101:
       switch(zj_bitcut(31, 25, s->isa.instr.val)) {
         EXW (0b0000000, srli, 4)
-        //EXW (0b0100000, srai, 4)
+        EXW (0b0100000, srai, 4)
       }
-    //EXW (0b110, ori, 4)
-    //EXW (0b111, andi, 4)
+      break; // important!!!
+    EXW (0b110, ori, 4)
+    EXW (0b111, andi, 4)
     default: exec_inv(s);
   }
 }
@@ -57,6 +58,7 @@ static inline def_EHelper(grp_01100) {
         //EXW (0b0000000, srl, 4)
         //EXW (0b0100000, sra, 4)
       }
+      break; // important!!!
     //EXW (0b110, or, 4)
     //EXW (0b111, and, 4)
     default: exec_inv(s);
