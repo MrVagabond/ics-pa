@@ -14,7 +14,7 @@ typedef struct {
     word_t imm;
     sword_t simm;
   };
-  rtlreg_t *preg;
+  rtlreg_t *preg; // 指向reg的指针
   rtlreg_t val;
   char str[OP_STR_SIZE];
 } Operand;
