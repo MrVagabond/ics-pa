@@ -1,4 +1,4 @@
-static inline def_EHelper(ld) {
+static inline def_EHelper(ld) { //天生的无符号字节加载
   rtl_lm(s, ddest, dsrc1, id_src2->imm, s->width);
 
   print_Dop(id_src1->str, OP_STR_SIZE, "%d(%s)", id_src2->imm, reg_name(id_src1->reg));
