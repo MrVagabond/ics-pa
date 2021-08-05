@@ -1,7 +1,8 @@
 #ifndef __RISCV32_H__
 #define __RISCV32_H__
 
-#define ISA_QEMU_BIN "qemu-system-riscv32"
+//#define ISA_QEMU_BIN "qemu-system-riscv32"
+#define ISA_QEMU_BIN "riscv32-qemu-so"
 #define ISA_QEMU_ARGS 
 
 #include "../../../../src/isa/riscv32/difftest/difftest.h"
