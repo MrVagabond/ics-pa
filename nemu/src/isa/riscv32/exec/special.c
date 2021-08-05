@@ -12,7 +12,8 @@ def_EHelper(inv) {
   instr[1] = instr_fetch(&s->seq_pc, 4);
 
   printf("invalid opcode(PC = " FMT_WORD ": %08x %08x ...\n\n",
-      cpu.pc, instr[0], instr[1]);
+      cpu.pc, instr[0], instr[1]);\
+  zj_print_opcode(instr[0]);
 
   display_inv_msg(cpu.pc);
 
