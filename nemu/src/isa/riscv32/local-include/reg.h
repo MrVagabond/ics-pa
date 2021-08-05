@@ -40,7 +40,7 @@ static inline void zj_print_opcode(word_t instr) {
     case 0b1101011 : printf(", nemu_trap"); break;
     case 0b0010011 : printf(", ");
       switch(zj_bitcut(14, 12, instr)) {
-        case 0b000 : printf("addi"); break;
+        case 0b000 : printf("addi, x[%d] <- x[%d] + sext(0x%x)", zj_bitcut(11, 7, instr), zj_bitcut(19, 15, instr), zj_bitcut(31, 20, instr)); break;
         case 0b010 : printf("slti"); break;
         case 0b011 : printf("sltiu"); break;
         case 0b100 : printf("xori"); break;
