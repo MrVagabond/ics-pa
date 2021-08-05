@@ -140,18 +140,18 @@ static inline def_rtl(host_sm, void *addr, const rtlreg_t *src1, int len) {
 
 // control
 
-static inline def_rtl(j, vaddr_t target) {
+static inline def_rtl(j, vaddr_t target) { // pc直接跳转到立即数的位置
   s->jmp_pc = target;
   s->is_jmp = true;
 }
 
-static inline def_rtl(jr, rtlreg_t *target) {
+static inline def_rtl(jr, rtlreg_t *target) { // pc跳转到指定寄存器值的位置
   s->jmp_pc = *target;
   s->is_jmp = true;
 }
 
 static inline def_rtl(jrelop, uint32_t relop,
-    const rtlreg_t *src1, const rtlreg_t *src2, vaddr_t target) {
+    const rtlreg_t *src1, const rtlreg_t *src2, vaddr_t target) { // 条件跳转
   bool is_jmp = interpret_relop(relop, *src1, *src2);
   if (is_jmp) rtl_j(s, target);
 }
