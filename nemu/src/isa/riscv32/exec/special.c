@@ -13,8 +13,7 @@ def_EHelper(inv) {
 
   printf("invalid opcode(PC = " FMT_WORD ": %08x %08x ...\n\n",
       cpu.pc, instr[0], instr[1]);\
-  zj_print_opcode(instr[0]);
-  printf("\n");
+      
   isa_reg_display();
 
   display_inv_msg(cpu.pc);
