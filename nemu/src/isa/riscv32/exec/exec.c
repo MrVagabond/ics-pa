@@ -29,7 +29,12 @@ static inline def_EHelper(store) {
 static inline def_EHelper(grp_00100) {
   switch (s->isa.instr.s.funct3) {
     EXW (0b000, addi, 4)
-    //EXW (0b001, slli, 4)
+    case 0b001:
+      switch(zj_bitcut(31, 25, s->isa.instr.val)) {
+        EXW (0b0000000, slli, 4)
+        default: exec_inv(s);
+      }
+      break;
     EXW (0b010, slti, 4)
     EXW (0b011, sltiu, 4)
     EXW (0b100, xori, 4)
@@ -37,6 +42,7 @@ static inline def_EHelper(grp_00100) {
       switch(zj_bitcut(31, 25, s->isa.instr.val)) {
         EXW (0b0000000, srli, 4)
         EXW (0b0100000, srai, 4)
+        default: exec_inv(s);
       }
       break; // important!!!
     EXW (0b110, ori, 4)
@@ -55,10 +61,30 @@ static inline def_EHelper(grp_01100) {
         default: exec_inv(s);
       }
       break;
-    EXW (0b001, sll, 4)
-    EXW (0b010, slt, 4)
-    EXW (0b011, sltu, 4)
-    EXW (0b100, xor, 4)
+    case 0b001:
+      switch(s->isa.instr.r.funct7) {
+        EXW (0b0000000, sll, 4)
+        default: exec_inv(s);
+      }
+      break;
+    case 0b010:
+      switch(s->isa.instr.r.funct7) {
+        EXW (0b0000000, slt, 4)
+        default: exec_inv(s);
+      }
+      break;
+    case 0b011:
+      switch(s->isa.instr.r.funct7) {
+        EXW (0b0000000, sltu, 4)
+        default: exec_inv(s);
+      }
+      break;
+    case 0b100:
+      switch(s->isa.instr.r.funct7) {
+        EXW (0b0000000, xor, 4)
+        default: exec_inv(s);
+      }
+      break;
     case 0b101:
       switch(s->isa.instr.r.funct7) {
         //EXW (0b0000000, srl, 4)
@@ -66,8 +92,18 @@ static inline def_EHelper(grp_01100) {
         default: exec_inv(s);
       }
       break; // important!!!
-    EXW (0b110, or, 4)
-    EXW (0b111, and, 4)
+    case 0b110:
+      switch(s->isa.instr.r.funct7) {
+        EXW (0b0000000, or, 4)
+        default: exec_inv(s);
+      }
+      break;
+    case 0b111:
+      switch(s->isa.instr.r.funct7) {
+        EXW (0b0000000, and, 4)
+        default: exec_inv(s);
+      }
+      break;
     default: exec_inv(s);
   }
 }
