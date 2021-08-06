@@ -9,10 +9,10 @@ bool isa_difftest_checkregs(CPU_state *ref_r, vaddr_t pc) { // 传入的是qemu�
   for(int i = 0; i < 31; i ++) {
     if(ref_r->gpr[i]._32 != cpu.gpr[i]._32) {
       flagerr = 1;
-      printf("\033[43;34mgpr[%d] not matched: in nemu is 0x%x while in qemu is 0x%x\033[0m\n", i, cpu.gpr[i]._32, ref_r->gpr[i]._32);
+      printf("\033[43;34mgpr[%d] not matched: in nemu is 0x%x while in qemu is 0x%x\033[0m", i, cpu.gpr[i]._32, ref_r->gpr[i]._32);
     }
   }
-  assert(flagerr == 0);
+  Assert(flagerr == 0, "\n");
   Assert(ref_r->pc == cpu.pc, "pc not matched: in nemu is 0x%x while in qemu is 0x%x\n", cpu.pc, ref_r->pc);
   return true;
 }
