@@ -64,6 +64,7 @@ static inline def_EHelper(grp_01100) {
     case 0b001:
       switch(s->isa.instr.r.funct7) {
         EXW (0b0000000, sll, 4)
+        EXW (0b0000001, mulh, 4)
         default: exec_inv(s);
       }
       break;
