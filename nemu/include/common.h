@@ -3,6 +3,7 @@
 
 #define DEBUG
 #define DIFF_TEST
+#define HAS_IOE
 
 #ifdef __ISA_riscv64__
 # define ISA64
