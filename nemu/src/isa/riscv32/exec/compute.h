@@ -60,6 +60,11 @@ static inline def_EHelper(sub) {
   print_asm_template2(sub);
 }
 
+static inline def_EHelper(mul) {
+  rtl_mul_lo(s, ddest, dsrc1, dsrc2);
+  print_asm_template3(mul);
+}
+
 static inline def_EHelper(xor) {
   rtl_xor(s, ddest, dsrc1, dsrc2);
   print_asm_template3(xor);
