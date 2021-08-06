@@ -32,6 +32,7 @@ void  *malloc    (size_t size);
 void   free      (void *ptr);
 
 // stdio.h
+int    puts      (const char *str);
 int    printf    (const char *format, ...);
 int    sprintf   (char *str, const char *format, ...);
 int    snprintf  (char *str, size_t size, const char *format, ...);

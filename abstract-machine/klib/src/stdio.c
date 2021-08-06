@@ -9,6 +9,10 @@
 // sprintf(), snprintf(), vsprintf() and vsnprintf() write to the character string str.
 static char buffer[2048];
 
+int puts(const char *str) {
+  for(int i = 0; str[i]; i ++) putch(str[i]);
+  return 0;
+}
 
 int printf(const char *fmt, ...) {
   return 0;
@@ -19,36 +23,51 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
 }
 
 int sprintf(char *out, const char *fmt, ...) {
+  buffer[0] = '\0';
   va_list ap;
   va_start(ap, fmt);
 
+  // 一些flags
   int i = 0; // 始终指向下一个未读取的字符 
   int j = 0; // 始终指向下一个输出的位置
-  // 一些flags
   int total = 0;
   int f_norm = 1; // 普通模式，在该模式下直接输出读取的字符
 
   // 一些临时变量
   int v;
+  char *str;
   
   while(fmt[i]) {
-    if(fmt[i] == '%') f_norm = 0;
+    /*puts("i j fmt[i] buffer is ");
+    puts(itoa(i));
+    puts(", ");
+    puts(itoa(j));
+    puts(", '");
+    putch(fmt[i]);
+    puts("', ");
+    puts(buffer);
+    puts("\n");
+    */
+    if(f_norm && fmt[i] == '%') f_norm = 0;
     if(f_norm) {
-      out[j] = fmt[i];
-      i ++, j ++;
+      buffer[j] = fmt[i];
+      i ++, j ++, buffer[j] = '\0';
     } else {
-      switch(fmt[i]) {
-        case '%': i ++; break;
-        case 'd':
-          v = va_arg(ap, int);
-          strcat(buffer, itoa(v));
-          f_norm = 1, total ++; // 设置标志
-          break;
-        case 's':
-          strcat(buffer, va_arg(ap, char *));
-          f_norm = 1, total ++; // 设置标志
-          break;
-        default: assert(0);
+      while(!f_norm) {
+        switch(fmt[i]) {
+          case '%': i ++; break;
+          case 'd':
+            v = va_arg(ap, int);
+            strcat(buffer, itoa(v));
+            f_norm = 1, total ++, i ++, j += strlen(itoa(v)); // 设置标志
+            break;
+          case 's':
+            str = va_arg(ap, char *);
+            strcat(buffer, str);
+            f_norm = 1, total ++, i ++, j += strlen(str); // 设置标志
+            break;
+          default: assert(0);
+        }
       }
     }
   }

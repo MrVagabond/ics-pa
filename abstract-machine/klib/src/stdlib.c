@@ -32,6 +32,11 @@ int atoi(const char* nptr) {
 static char buf1[1024];
 static char buf2[1024];
 char *itoa(int n) {
+  if(n == 0) {
+    buf1[0] = '0';
+    buf1[1] = '\0';
+    return buf1;
+  }
   int i = 0;
   if(n < 0) {
     buf1[i] = '-';
@@ -47,6 +52,9 @@ char *itoa(int n) {
   j --;
   for(; j >=0; ) buf1[i] = buf2[j], i ++, j --;
   buf1[i] = '\0';
+  //puts("itoa output: ");
+  //puts(buf1);
+  //puts("\n");
   return buf1;
 }
 
