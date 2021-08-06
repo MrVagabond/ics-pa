@@ -8,8 +8,8 @@ static inline void set_width(DecodeExecState *s, int width) {
 
 static inline def_EHelper(load) {
   switch (s->isa.instr.i.funct3) {
-    EXW (0b000, ld, 1) // ??
-    EXW (0b001, ld, 2) // ??
+    EXW (0b000, sextld, 1)
+    EXW (0b001, sextld, 2)
     EXW (0b010, ld, 4)
     EXW (0b100, ld, 1)
     EXW (0b101, ld, 2)
