@@ -5,17 +5,17 @@
 
 size_t strlen(const char *s) {
   size_t res = 0;
-  while(s[res ++]);
+  while(s[res] != '\0') res ++;
   return res;
 }
 
 char *strcpy(char* dst,const char* src) {
   // The  strcpy()  function  copies  the string pointed to by src, including the terminating null byte ('\0'), to the buffer pointed to by dest.
   int i;
-  for(i = 0; *(src + i); i ++) {
-    *(dst + i) = *(src + i);
+  for(i = 0; src[i]; i ++) {
+    dst[i] = src[i];
   }
-  *(dst + i) = '\0';
+  dst[i] = '\0';
   return dst;
 }
 
@@ -23,11 +23,11 @@ char* strncpy(char* dst, const char* src, size_t n) {
   // The strncpy() function is similar, except that at most n bytes of src are copied.  
   // Warning: If there is no null byte among the first n bytes of src, the string placed in dest will not be null-terminated.
   int i;
-  for(i = 0; *(src + i) && i < n; i ++) {
-    *(dst + i) = *(src + i);
+  for(i = 0; src[i] && i < n; i ++) {
+    dst[i] = src[i];
   }
   if(i < n) {
-    *(dst + i) = '\0';
+    dst[i] = '\0';
   } else {
     assert(i == n);
   }
@@ -37,12 +37,11 @@ char* strncpy(char* dst, const char* src, size_t n) {
 char* strcat(char* dst, const char* src) {
   // The  strcat() function appends the src string to the dest string, 
   // overwriting the terminating null byte ('\0') at the end of dest, and then adds a terminating null byte.
-  int i = 0, j;
-  while(dst[i ++]);
-  for(j = 0; *(src + j); j ++) {
-    *(dst + i + j) = *(src + j); 
-  }
-  *(dst + i + j) = '\0';
+  
+  int i = 0;
+  // while(dst[i ++]); 错误写法
+  while(dst[i] != '\0') i ++;
+  strcpy(dst + i, src);
   return dst;
 }
 
