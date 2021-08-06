@@ -15,7 +15,12 @@ int puts(const char *str) {
 }
 
 int printf(const char *fmt, ...) {
-  return 0;
+  va_list ap;
+  va_start(ap, fmt);
+  int ret = sprintf(buffer, fmt, ap);
+  va_end(ap);
+  puts(buffer);
+  return ret;
 }
 
 int vsprintf(char *out, const char *fmt, va_list ap) {
