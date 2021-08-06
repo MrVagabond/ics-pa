@@ -29,6 +29,27 @@ int atoi(const char* nptr) {
   return x;
 }
 
+static char buf1[1024];
+static char buf2[1024];
+char *itoa(int n) {
+  int i = 0;
+  if(n < 0) {
+    buf1[i] = '-';
+    i ++;
+  }
+  n = abs(n);
+
+  int j;
+  for(j = 0; n; j ++) {
+    buf2[j] = (n % 10) + '0';
+    n /= 10;
+  }
+  j --;
+  for(; j >=0; ) buf1[i] = buf2[j], i ++, j --;
+  buf1[i] = '\0';
+  return buf1;
+}
+
 void *malloc(size_t size) {
   return NULL;
 }

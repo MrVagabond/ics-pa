@@ -39,7 +39,7 @@ char* strcat(char* dst, const char* src) {
   // overwriting the terminating null byte ('\0') at the end of dest, and then adds a terminating null byte.
   
   int i = 0;
-  // while(dst[i ++]); 错误写法
+  // while(dst[i ++]); 错误写法，这种写法会让i停在'\0'后一个位置上
   while(dst[i] != '\0') i ++;
   strcpy(dst + i, src);
   return dst;
