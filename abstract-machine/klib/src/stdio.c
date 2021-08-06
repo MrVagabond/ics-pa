@@ -25,6 +25,7 @@ int sprintf(char *out, const char *fmt, ...) {
   int i = 0; // 始终指向下一个未读取的字符 
   int j = 0; // 始终指向下一个输出的位置
   // 一些flags
+  int total = 0;
   int f_norm = 1; // 普通模式，在该模式下直接输出读取的字符
 
   // 一些临时变量
@@ -41,18 +42,19 @@ int sprintf(char *out, const char *fmt, ...) {
         case 'd':
           v = va_arg(ap, int);
           strcat(buffer, itoa(v));
-          f_norm = 1;
+          f_norm = 1, total ++; // 设置标志
           break;
         case 's':
           strcat(buffer, va_arg(ap, char *));
-          f_norm = 1;
+          f_norm = 1, total ++; // 设置标志
           break;
         default: assert(0);
       }
     }
   }
+  strcpy(out, buffer);
 
-  return 0;
+  return total;
 }
 
 int snprintf(char *out, size_t n, const char *fmt, ...) {
