@@ -90,6 +90,11 @@ static inline def_EHelper(rem) {
   print_asm_template3(rem);
 }
 
+static inline def_EHelper(remu) {
+  rtl_div_r(s, ddest, dsrc1, dsrc2);
+  print_asm_template3(remu);
+}
+
 static inline def_EHelper(xor) {
   rtl_xor(s, ddest, dsrc1, dsrc2);
   print_asm_template3(xor);
