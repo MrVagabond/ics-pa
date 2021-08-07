@@ -74,6 +74,7 @@ char *hextoa(unsigned int n) {
   j --;
   for(; j >= 0; ) buf1[i] = buf2[j], i ++, j --;
   buf1[i] = '\0';
+  puts(buf1);
   return buf1;
 }
 
