@@ -70,6 +70,11 @@ static inline def_EHelper(mulh) {
   print_asm_template3(mulh);
 }
 
+static inline def_EHelper(mulhu) {
+  rtl_mul_hi(s, ddest, dsrc1, dsrc2);
+  print_asm_template3(mulhu);
+}
+
 static inline def_EHelper(div) {
   rtl_idiv_q(s, ddest, dsrc1, dsrc2);
   print_asm_template3(div);
