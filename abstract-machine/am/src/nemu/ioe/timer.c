@@ -3,14 +3,18 @@
 
 #include <klib.h>
 
-static uint64_t __am_timer_init_usecs; 
+static uint32_t __am_timer_init_usecs; 
+static uint32_t __am_timer_init_secs;
 
 void __am_timer_init() {
-  __am_timer_init_usecs = (uint64_t)inl(RTC_ADDR + 4) * 1000000 + (uint64_t)inl(RTC_ADDR);
+  __am_timer_init_usecs = inl(RTC_ADDR);
+  __am_timer_init_secs = inl(RTC_ADDR + 4);
 }
 
 void __am_timer_uptime(AM_TIMER_UPTIME_T *uptime) {
-  uptime->us = (uint64_t)inl(RTC_ADDR + 4) * 1000000 + (uint64_t)inl(RTC_ADDR) - __am_timer_init_usecs;
+  uint32_t current_usecs = inl(RTC_ADDR);
+  uint32_t current_secs = inl(RTC_ADDR + 4);
+  uptime->us = (current_secs - __am_timer_init_secs) * 1000000 - __am_timer_init_usecs + current_usecs;
   printf("__am_timer_uptime us = %d\n", uptime->us);
 }
 
