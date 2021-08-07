@@ -77,6 +77,8 @@ int sprintf(char *out, const char *fmt, ...) {
             strcat(buffer, hextoa(u));
             f_norm = 1, total ++, i ++, j += strlen(hextoa(u)); // 设置标志
             break;
+          case '0':
+            f_norm = 1, i ++; // 设置标志
           default: puts("in klib sprintf, not implement '"); putch(fmt[i]); puts("': "); assert(0);
         }
       }
