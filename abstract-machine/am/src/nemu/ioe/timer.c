@@ -9,7 +9,9 @@ void __am_timer_init() {
 void __am_timer_uptime(AM_TIMER_UPTIME_T *uptime) {
   printf("in __am_timer_uptime\n");
   uint32_t lo = inl(RTC_ADDR);
+  printf("lo is %d\n", lo);
   uint32_t hi = inl(RTC_ADDR + 4);
+  printf("hi is %d\n", hi);
   uptime->us = ((uint64_t)hi << 32) | (uint64_t)lo;
 }
 
