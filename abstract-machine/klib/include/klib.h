@@ -48,7 +48,7 @@ int    sscanf    (const char *str, const char *format, ...);
   #define assert(cond) \
     do { \
       if (!(cond)) { \
-        printf("Assertion fail at %s:%d\n", __FILE__, __LINE__); \
+        printf("Klib Assertion fail at %s:%d\n", __FILE__, __LINE__); \
         halt(1); \
       } \
     } while (0)
