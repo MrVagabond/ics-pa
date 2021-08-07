@@ -52,9 +52,9 @@ char *itoa(int n) {
   j --;
   for(; j >=0; ) buf1[i] = buf2[j], i ++, j --;
   buf1[i] = '\0';
-  puts("itoa output: ");
-  puts(buf1);
-  puts("\n");
+  //puts("itoa output: ");
+  //puts(buf1);
+  //puts("\n");
   return buf1;
 }
 
