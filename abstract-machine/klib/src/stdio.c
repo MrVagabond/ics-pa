@@ -40,6 +40,7 @@ int sprintf(char *out, const char *fmt, ...) {
 
   // 一些临时变量
   int v;
+  unsigned int u;
   char *str;
   
   while(fmt[i]) {
@@ -71,6 +72,10 @@ int sprintf(char *out, const char *fmt, ...) {
             strcat(buffer, str);
             f_norm = 1, total ++, i ++, j += strlen(str); // 设置标志
             break;
+          case 'x':
+            u = va_arg(ap, unsigned int);
+            strcat(buffer, hextoa(u));
+            f_norm = 1, total ++, i ++, j += strlen(hextoa(u)); // 设置标志
           default: assert(0);
         }
       }

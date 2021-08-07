@@ -58,6 +58,25 @@ char *itoa(int n) {
   return buf1;
 }
 
+char *hextoa(unsigned int n) {
+  if(n == 0) {
+    buf1[0] = '0';
+    buf1[1] = '\0';
+    return buf1;
+  }
+  int i = 0;
+  int j;
+  for(j = 0; n; j ++) {
+    int t = n % 16;
+    buf2[j] = t < 10 ? t + '0' : t - 10 + 'a';
+    n /= 16;
+  }
+  j --;
+  for(; j >= 0; ) buf1[i] = buf2[j], i ++, j --;
+  buf1[i] = '\0';
+  return buf1;
+}
+
 void *malloc(size_t size) {
   return NULL;
 }
