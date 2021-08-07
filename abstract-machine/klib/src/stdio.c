@@ -96,7 +96,7 @@ int sprintf(char *out, const char *fmt, ...) {
               u --;
               putch('u');
             }
-            f_norm = 1, i ++; // 设置标志
+            i ++; // 设置标志
             break;
           default: puts("in klib sprintf, not implement '"); putch(fmt[i]); puts("': "); assert(0);
         }
