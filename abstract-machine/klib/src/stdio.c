@@ -78,6 +78,11 @@ int sprintf(char *out, const char *fmt, ...) {
             strcat(buffer, hextoa(u));
             f_norm = 1, total ++, i ++, j += strlen(hextoa(u)); // 设置标志
             break;
+          case 'u':
+            u = va_arg(ap, unsigned int);
+            strcat(buffer, utoa(u));
+            f_norm = 1, total ++, i ++, j += strlen(utoa(u)); // 设置标志
+            break;
           /*case '0': // 填充u个0
             get_num = 1;
             u = 0;

@@ -78,6 +78,28 @@ char *hextoa(unsigned int n) {
   return buf1;
 }
 
+char *utoa(unsigned int n) {
+  if(n == 0) {
+    buf1[0] = '0';
+    buf1[1] = '\0';
+    return buf1;
+  }
+  int i = 0;
+
+  int j;
+  for(j = 0; n; j ++) {
+    buf2[j] = (n % 10) + '0';
+    n /= 10;
+  }
+  j --;
+  for(; j >=0; ) buf1[i] = buf2[j], i ++, j --;
+  buf1[i] = '\0';
+  //puts("utoa output: ");
+  //puts(buf1);
+  //puts("\n");
+  return buf1;
+}
+
 int isdigit(char c) {
   return '0' <= c && c <= '9';
 }

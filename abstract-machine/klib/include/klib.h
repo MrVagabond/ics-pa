@@ -27,6 +27,7 @@ int    strncmp   (const char *s1, const char *s2, size_t n);
 int    atoi      (const char *nptr);
 char  *itoa      (int n);
 char  *hextoa    (unsigned int n);
+char  *utoa      (unsigned int n);
 int    isdigit   (char c);
 void   srand     (unsigned int seed);
 int    rand      (void);
