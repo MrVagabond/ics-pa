@@ -4,13 +4,9 @@
 #include <klib.h>
 
 void __am_timer_init() {
-  outl(RTC_ADDR, 0);
-  outl(RTC_ADDR + 4, 0);
 }
 
 void __am_timer_uptime(AM_TIMER_UPTIME_T *uptime) {
-  // uptime->us = (uint64_t)inl(RTC_ADDR + 4);
-  printf("__am_timer_uptime init val: hi=%d, lo=%d\n", (int32_t)(uptime->us >> 32), (int32_t)(uptime->us));
 }
 
 void __am_timer_rtc(AM_TIMER_RTC_T *rtc) {
