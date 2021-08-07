@@ -76,6 +76,7 @@ int sprintf(char *out, const char *fmt, ...) {
             u = va_arg(ap, unsigned int);
             strcat(buffer, hextoa(u));
             f_norm = 1, total ++, i ++, j += strlen(hextoa(u)); // 设置标志
+            break;
           default: assert(0);
         }
       }
