@@ -11,6 +11,7 @@ void __am_timer_init() {
 
 void __am_timer_uptime(AM_TIMER_UPTIME_T *uptime) {
   uptime->us = (uint64_t)inl(RTC_ADDR + 4) * 1000000 + (uint64_t)inl(RTC_ADDR) - __am_timer_init_usecs;
+  printf("__am_timer_uptime us = %d\n", uptime->us);
 }
 
 void __am_timer_rtc(AM_TIMER_RTC_T *rtc) {
