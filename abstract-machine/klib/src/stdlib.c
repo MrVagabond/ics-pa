@@ -78,6 +78,10 @@ char *hextoa(unsigned int n) {
   return buf1;
 }
 
+int isdigit(char c) {
+  return '0' <= c && c <= '9';
+}
+
 void *malloc(size_t size) {
   return NULL;
 }

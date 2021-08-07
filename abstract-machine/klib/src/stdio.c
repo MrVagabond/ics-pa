@@ -37,6 +37,7 @@ int sprintf(char *out, const char *fmt, ...) {
   int j = 0; // 始终指向下一个输出的位置
   int total = 0;
   int f_norm = 1; // 普通模式，在该模式下直接输出读取的字符
+  int get_num = 0; // 是否在参数模式下获取接下来的所有数字
 
   // 一些临时变量
   int v;
@@ -77,8 +78,24 @@ int sprintf(char *out, const char *fmt, ...) {
             strcat(buffer, hextoa(u));
             f_norm = 1, total ++, i ++, j += strlen(hextoa(u)); // 设置标志
             break;
-          case '0':
+          case '0': // 填充u个0
+            get_num = 1;
+            u = 0;
+            i ++;
+            while(get_num) {
+              if(isdigit(fmt[i])) {
+                u = u * 10 + (fmt[i] - '0');
+              } else {
+                get_num = 0;
+              }
+            }
+            while(u) {
+              buffer[j] = '0';
+              j ++;
+              u --;
+            }
             f_norm = 1, i ++; // 设置标志
+            break;
           default: puts("in klib sprintf, not implement '"); putch(fmt[i]); puts("': "); assert(0);
         }
       }
