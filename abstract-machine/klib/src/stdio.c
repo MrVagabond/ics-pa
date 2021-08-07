@@ -88,11 +88,13 @@ int sprintf(char *out, const char *fmt, ...) {
               } else {
                 get_num = 0;
               }
+              putch('n');
             }
             while(u) {
               buffer[j] = '0';
               j ++;
               u --;
+              putch('u');
             }
             f_norm = 1, i ++; // 设置标志
             break;
