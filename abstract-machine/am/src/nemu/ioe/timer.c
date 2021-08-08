@@ -3,13 +3,13 @@
 
 #include <klib.h>
 
-//static uint32_t __am_timer_init_usecs; 
-//static uint32_t __am_timer_init_secs;
+static uint32_t __am_timer_init_usecs; 
+static uint32_t __am_timer_init_secs;
 
 void __am_timer_init() {
-  //__am_timer_init_usecs = inl(RTC_ADDR);
-  //__am_timer_init_secs = inl(RTC_ADDR + 4);
-  //printf("initial time %u secs and %u usecs\n", __am_timer_init_secs, __am_timer_init_usecs);
+  __am_timer_init_usecs = inl(RTC_ADDR);
+  __am_timer_init_secs = inl(RTC_ADDR + 4);
+  printf("initial time %u secs and %u usecs\n", __am_timer_init_secs, __am_timer_init_usecs);
 }
 
 void __am_timer_uptime(AM_TIMER_UPTIME_T *uptime) {
