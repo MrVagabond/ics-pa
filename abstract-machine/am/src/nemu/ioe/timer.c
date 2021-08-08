@@ -9,11 +9,11 @@ static uint32_t __am_timer_init_secs;
 void __am_timer_init() {
   __am_timer_init_usecs = inl(RTC_ADDR);
   __am_timer_init_secs = inl(RTC_ADDR + 4);
-  printf("initial time %u secs and %u usecs\n", __am_timer_init_secs, __am_timer_init_usecs);
-  //puts(utoa(__am_timer_init_usecs));
-  //putch('\n');
-  //puts(utoa(__am_timer_init_secs));
-  //putch('\n');
+  //printf("initial time %u secs and %u usecs\n", __am_timer_init_secs, __am_timer_init_usecs);
+  puts(utoa(__am_timer_init_usecs));
+  putch('\n');
+  puts(utoa(__am_timer_init_secs));
+  putch('\n');
 }
 
 void __am_timer_uptime(AM_TIMER_UPTIME_T *uptime) {
