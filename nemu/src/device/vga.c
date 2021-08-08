@@ -66,7 +66,7 @@ void init_vga() {
   vgactl_port_base[0] = ((SCREEN_W) << 16) | (SCREEN_H);
   vgactl_port_base[1] = 0; // 作为同步寄存器，初值为0，这是由am的框架代码要求的
   
-  add_pio_map("screen", VGACTL_PORT, (void *)vgactl_port_base, 8, NULL);
+  add_pio_map("screen", VGACTL_PORT, (void *)vgactl_port_base, 8, NULL); // 不需要handler，因为device_update每次都会调用vga_update_screen来更新屏幕
   add_mmio_map("screen", VGACTL_MMIO, (void *)vgactl_port_base, 8, NULL); // 注册了宽度和高度
 
   vmem = (void *)new_space(SCREEN_SIZE);
