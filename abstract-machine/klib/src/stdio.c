@@ -7,7 +7,9 @@
 
 // printf() write output to stdout, the standard output stream;
 // sprintf(), snprintf(), vsprintf() and vsnprintf() write to the character string str.
-static char buffer[2048];
+
+static char sprintf_buffer[2048]; // 除了sprintf其他均不能使用
+static char printf_buf[2048]; // 除了printf其他均不能使用
 
 int puts(const char *str) {
   for(int i = 0; str[i]; i ++) putch(str[i]);
@@ -17,9 +19,9 @@ int puts(const char *str) {
 int printf(const char *fmt, ...) {
   va_list ap;
   va_start(ap, fmt);
-  int ret = sprintf(buffer, fmt, ap);
+  int ret = sprintf(printf_buf, fmt, ap);
   va_end(ap);
-  puts(buffer);
+  puts(printf_buf);
   return ret;
 }
 
@@ -28,7 +30,7 @@ int vsprintf(char *out, const char *fmt, va_list ap) {
 }
 
 int sprintf(char *out, const char *fmt, ...) {
-  buffer[0] = '\0';
+  sprintf_buffer[0] = '\0';
   va_list ap;
   va_start(ap, fmt);
 
@@ -45,42 +47,42 @@ int sprintf(char *out, const char *fmt, ...) {
   char *str;
   
   while(fmt[i]) {
-    /*puts("i j fmt[i] buffer is ");
+    /*puts("i j fmt[i] sprintf_buffer is ");
     puts(itoa(i));
     puts(", ");
     puts(itoa(j));
     puts(", '");
     putch(fmt[i]);
     puts("', ");
-    puts(buffer);
+    puts(sprintf_buffer);
     puts("\n");
     */
     if(f_norm && fmt[i] == '%') f_norm = 0;
     if(f_norm) {
-      buffer[j] = fmt[i];
-      i ++, j ++, buffer[j] = '\0';
+      sprintf_buffer[j] = fmt[i];
+      i ++, j ++, sprintf_buffer[j] = '\0';
     } else {
       while(!f_norm) {
         switch(fmt[i]) {
           case '%': i ++; break;
           case 'd':
             v = va_arg(ap, int);
-            strcat(buffer, itoa(v));
+            strcat(sprintf_buffer, itoa(v));
             f_norm = 1, total ++, i ++, j += strlen(itoa(v)); // 设置标志
             break;
           case 's':
             str = va_arg(ap, char *);
-            strcat(buffer, str);
+            strcat(sprintf_buffer, str);
             f_norm = 1, total ++, i ++, j += strlen(str); // 设置标志
             break;
           case 'x':
             u = va_arg(ap, unsigned int);
-            strcat(buffer, hextoa(u));
+            strcat(sprintf_buffer, hextoa(u));
             f_norm = 1, total ++, i ++, j += strlen(hextoa(u)); // 设置标志
             break;
           case 'u':
             u = va_arg(ap, unsigned int);
-            strcat(buffer, utoa(u));
+            strcat(sprintf_buffer, utoa(u));
             f_norm = 1, total ++, i ++, j += strlen(utoa(u)); // 设置标志
             break;
           /*case '0': // 填充u个0
@@ -96,7 +98,7 @@ int sprintf(char *out, const char *fmt, ...) {
               putch('n');
             }
             while(u) {
-              buffer[j] = '0';
+              sprintf_buffer[j] = '0';
               j ++;
               u --;
               putch('u');
@@ -108,7 +110,7 @@ int sprintf(char *out, const char *fmt, ...) {
       }
     }
   }
-  strcpy(out, buffer);
+  strcpy(out, sprintf_buffer);
 
   return total;
 }
