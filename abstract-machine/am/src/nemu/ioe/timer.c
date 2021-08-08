@@ -25,9 +25,9 @@ void __am_timer_uptime(AM_TIMER_UPTIME_T *uptime) {
   
   //printf("__am_timer_uptime us = %u\n", uptime->us);
 
-  puts("total usecs is ");
-  puts(utoa(uptime->us));
-  putch('\n');
+  //puts("total usecs is ");
+  //puts(utoa(uptime->us));
+  //putch('\n');
 }
 
 void __am_timer_rtc(AM_TIMER_RTC_T *rtc) {
