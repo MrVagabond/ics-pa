@@ -17,11 +17,14 @@ void __am_timer_init() {
 }
 
 void __am_timer_uptime(AM_TIMER_UPTIME_T *uptime) {
-  //uint32_t current_usecs = inl(RTC_ADDR);
-  //uint32_t current_secs = inl(RTC_ADDR + 4);
-  //uptime->us = (current_secs - __am_timer_init_secs) * 1000000 - __am_timer_init_usecs + current_usecs;
+  uint32_t current_usecs = inl(RTC_ADDR);
+  uint32_t current_secs = inl(RTC_ADDR + 4);
+  uptime->us = (current_secs - __am_timer_init_secs) * 1000000 - __am_timer_init_usecs + current_usecs;
   //uptime->us = 100;
   //printf("__am_timer_uptime us = %u\n", uptime->us);
+  puts("total usecs is ");
+  puts(utoa(uptime->us));
+  putch('\n');
 }
 
 void __am_timer_rtc(AM_TIMER_RTC_T *rtc) {
