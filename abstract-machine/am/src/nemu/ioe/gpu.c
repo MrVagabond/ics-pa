@@ -22,7 +22,6 @@ void __am_gpu_config(AM_GPU_CONFIG_T *cfg) {
 }
 
 void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl) {
-  if (ctl->sync) {
     // 在(x,y)坐标处画一个w*h的矩形，像素按行优先存储在pixels中，每个像素用32位整数00RRGGBB的方式描述颜色
     int x = ctl->x, y = ctl->y;
     void *pixels = ctl->pixels;
@@ -40,8 +39,9 @@ void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl) {
       }
     }
     assert(i == w * h);
-    outl(SYNC_ADDR, 1);
-  }
+    if(ctl->sync) {
+      outl(SYNC_ADDR, 1);
+    }
 }
 
 void __am_gpu_status(AM_GPU_STATUS_T *status) {
