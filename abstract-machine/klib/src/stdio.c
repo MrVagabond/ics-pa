@@ -17,7 +17,7 @@ int puts(const char *str) {
 }
 
 int printf(const char *fmt, ...) {
-  assert(0); // 不允许调用printf
+  //assert(0); // 不允许调用printf
   va_list ap;
   va_start(ap, fmt);
   int ret = sprintf(printf_buf, fmt, ap);
