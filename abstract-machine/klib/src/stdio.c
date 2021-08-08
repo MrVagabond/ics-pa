@@ -29,119 +29,76 @@ int printf(const char *fmt, ...) {
 }
 
 int vsprintf(char *out, const char *fmt, va_list ap) {
-  size_t j = 0, k = 0 ,i = 0;
-  int val, num[64] = {0};
-  uint32_t v;
-  const char* str;
-  char nums[20];
-  while (*fmt != '\0')
-  {
-    switch (*fmt)
-    {
-    case '%':
-      //精度,中间还没留精度的选项
-      fmt++;
-      if (*fmt >= 'a' && *fmt <= 'z')
-      {
-        switch (*fmt)
-        {
-          case 'd':
-            val = va_arg(ap, int);
-            k = 0;
-            if (val == 0x80000000)
-            {
-              out[j++] = '-';out[j++] = '2';out[j++] = '1';out[j++] = '4';out[j++] = '7';out[j++] = '4';
-              out[j++] = '8';out[j++] = '3';out[j++] = '6';out[j++] = '4';out[j++] = '8';
-              fmt++;
-              break;
-            }
-            else if (val < 0)
-            {
-              val = (-1) * val;
-              out[j++] = '-';
-            }
-            do
-            {
-              num[k++] = val % 10 + '0';
-              val = val / 10;
-            } while (val != 0);
-            for (int ii = k - 1; ii >= 0; ii--)
-            {
-              out[j++] = num[ii];
-            }
-            fmt++;
-            break;
-          case 's':
-            str = va_arg(ap, char *);
-            i= 0;
-            while(str[i] != '\0')
-            {
-              out[j++] = str[i++];
-            }
-            fmt++;
-            break;  
-          case 'x':  
-            v = va_arg(ap,uint32_t);
-            k = 0;
-            out[j++]='0';
-            out[j++]='x';
-            if(v == 0){
-                out[j++] = '0';
-                fmt++;
-                break;
-            }
-            while(v != 0)
-            {
-              nums[k++] = v%16 < 10? v%16+'0':'a'+v%16-10;
-              v = v/16;
-            }
-            for(int ii=k-1;ii>=0;ii--){
-              out[j++]=nums[ii];
-            }
-            fmt++;
-            break; 
-          case 'p':
-            v = va_arg(ap,uint32_t);
-            k = 0;
-            out[j++]='0';
-            out[j++]='x';
-            if(v == 0){
-              out[j++] = '0';
-              fmt++;
-              break;
-            }
-            while(v != 0)
-            {
-              nums[k++] = v%16 < 10? v%16+'0':'a'+v%16-10;
-              v = v/16;
-            }
-            for(int ii=k-1;ii>=0;ii--){
-              out[j++]=nums[ii];
-            }
-            fmt++;
-            break;
-          case 'c':
-            out[j++] = va_arg(ap,int);
-            fmt++;
-            break;  
-          default:
-            assert(0);
-          //other fuctions remaining to be realized.
+  int length;
+  const char* a;
+  char *str=out;
+  for(;*fmt;++fmt){
+    if(*fmt!='%'){
+      *str++=*fmt;
+      continue;
+    }
+    ++fmt;
+    switch(*fmt){
+      case 's':{
+        a=va_arg(ap,char*);
+        length=strlen(a);
+        for(int i=0;i<length;i++){
+          *str++=*a++;
         }
-      } //处理标志符及一个字母中间的数
-      else{
-        out[j++] = *fmt;
-        fmt++;
+        continue;
       }
-      break;
-    default:
-      out[j++] = *fmt;
-      fmt++;
+      case 'd':{
+        int num=va_arg(ap,int);
+        int i=0;
+        char nums[20];
+        if(num==0)nums[0]='0';
+        else{
+          if(num<0){
+            *str++='-';
+            num=(-num);
+          }
+          while(num!=0){
+            nums[i++]=num%10+'0';
+            num/=10;
+          }
+        }
+        for(int j=i-1;j>=0;j--){
+          *str++=nums[j];
+        }
+        break;
+      }
+      case 'c':{
+        int num=va_arg(ap,int);
+        *str++=(char)num;
+        break;
+      }
+      case 'p':
+      case 'x':{
+        uint32_t num = va_arg(ap,uint32_t);
+        int i=0;
+        char nums[20];
+        if(num==0)nums[0]='0';
+        else{
+          while(num!=0){
+            uint32_t x=num%16;
+            if(x<10)nums[i++]=x+'0';
+            else nums[i++]=x-10+'a';
+            num/=16;
+          }
+        }
+        *str++='0';
+        *str++='x';
+        for(int j=i-1;j>=0;j--){
+          *str++=nums[j];
+        }
+        break;
+      }
+    
+      default:break;
     }
   }
-  out[j] = '\0';
-  return j;
-
+  *str='\0';
+  return 0;
   //return 0;
 }
 
