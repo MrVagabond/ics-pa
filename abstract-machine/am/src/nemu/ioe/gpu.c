@@ -29,14 +29,14 @@ void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl) {
     // void *pixels = ctl->pixels;
     // int w = ctl->w, h = ctl->h;
 
-    // assert(0 <= x && x + h < inw(VGACTL_ADDR)); // 矩形的行坐标应该在高度的范围内
-    // assert(0 <= y && y + w < inw(VGACTL_ADDR + 2)); // 矩形的列坐标应该在宽度的范围内
+    // assert(0 <= x && x + w < inw(VGACTL_ADDR + 2)); // 矩形的横坐标应该在宽度的范围内
+    // assert(0 <= y && y + h < inw(VGACTL_ADDR)); // 矩形的纵坐标应该在高度的范围内
     
     // uint32_t *fb = (uint32_t *)(uintptr_t)FB_ADDR;
     // int i = 0;
-    // for(int row = x; row < x + h; row ++) {
-    //   for(int col = y; col < y + w; col ++) {
-    //     *(fb + row * inw(VGACTL_ADDR + 2) + col) = ((uint32_t *)pixels)[i];
+    // for(int row = y; row < y + h; row ++) {
+    //   for(int col = x; col < x + w; col ++) {
+    //     *(fb + row * inw(VGACTL_ADDR + 2) + col) = ((uint32_t *)pixels)[row - y][col - x];
     //     i ++;
     //   }
     // }
