@@ -8,8 +8,6 @@
 // printf() write output to stdout, the standard output stream;
 // sprintf(), snprintf(), vsprintf() and vsnprintf() write to the character string str.
 
-static char sprintf_buffer[2048]; // 除了sprintf其他均不能使用
-static char printf_buf[2048]; // 除了printf其他均不能使用
 
 int puts(const char *str) {
   for(int i = 0; str[i]; i ++) putch(str[i]);
@@ -17,103 +15,143 @@ int puts(const char *str) {
 }
 
 int printf(const char *fmt, ...) {
-  //assert(0); // 不允许调用printf
+  char ans[2048]={0};
   va_list ap;
+  int ret = 0;
   va_start(ap, fmt);
-  int ret = sprintf(printf_buf, fmt, ap);
+  ret = vsprintf(ans, fmt, ap);
   va_end(ap);
-  puts(printf_buf);
+  for(int i = 0; ans[i] != '\0';i++)
+  {
+    putch(ans[i]);
+  }
   return ret;
 }
 
 int vsprintf(char *out, const char *fmt, va_list ap) {
-  return 0;
-}
-
-int sprintf(char *out, const char *fmt, ...) {
-  sprintf_buffer[0] = '\0';
-  va_list ap;
-  va_start(ap, fmt);
-
-  // 一些flags
-  int i = 0; // 始终指向下一个未读取的字符 
-  int j = 0; // 始终指向下一个输出的位置
-  int total = 0;
-  int f_norm = 1; // 普通模式，在该模式下直接输出读取的字符
-  // int get_num = 0; // 是否在参数模式下获取接下来的所有数字
-
-  // 一些临时变量
-  int v;
-  unsigned int u;
-  char *str;
-  
-  while(fmt[i]) {
-    /*puts("i j fmt[i] sprintf_buffer is ");
-    puts(itoa(i));
-    puts(", ");
-    puts(itoa(j));
-    puts(", '");
-    putch(fmt[i]);
-    puts("', ");
-    puts(sprintf_buffer);
-    puts("\n");
-    */
-    if(f_norm && fmt[i] == '%') f_norm = 0;
-    if(f_norm) {
-      sprintf_buffer[j] = fmt[i];
-      i ++, j ++, sprintf_buffer[j] = '\0';
-    } else {
-      while(!f_norm) {
-        switch(fmt[i]) {
-          case '%': i ++; break;
+  size_t j = 0, k = 0 ,i = 0;
+  int val, num[64] = {0};
+  uint32_t v;
+  const char* str;
+  char nums[20];
+  while (*fmt != '\0')
+  {
+    switch (*fmt)
+    {
+    case '%':
+      //精度,中间还没留精度的选项
+      fmt++;
+      if (*fmt >= 'a' && *fmt <= 'z')
+      {
+        switch (*fmt)
+        {
           case 'd':
-            v = va_arg(ap, int);
-            strcat(sprintf_buffer, itoa(v));
-            f_norm = 1, total ++, i ++, j += strlen(itoa(v)); // 设置标志
+            val = va_arg(ap, int);
+            k = 0;
+            if (val == 0x80000000)
+            {
+              out[j++] = '-';out[j++] = '2';out[j++] = '1';out[j++] = '4';out[j++] = '7';out[j++] = '4';
+              out[j++] = '8';out[j++] = '3';out[j++] = '6';out[j++] = '4';out[j++] = '8';
+              fmt++;
+              break;
+            }
+            else if (val < 0)
+            {
+              val = (-1) * val;
+              out[j++] = '-';
+            }
+            do
+            {
+              num[k++] = val % 10 + '0';
+              val = val / 10;
+            } while (val != 0);
+            for (int ii = k - 1; ii >= 0; ii--)
+            {
+              out[j++] = num[ii];
+            }
+            fmt++;
             break;
           case 's':
             str = va_arg(ap, char *);
-            strcat(sprintf_buffer, str);
-            f_norm = 1, total ++, i ++, j += strlen(str); // 设置标志
-            break;
-          case 'x':
-            u = va_arg(ap, unsigned int);
-            strcat(sprintf_buffer, hextoa(u));
-            f_norm = 1, total ++, i ++, j += strlen(hextoa(u)); // 设置标志
-            break;
-          case 'u':
-            u = va_arg(ap, unsigned int);
-            strcat(sprintf_buffer, utoa(u));
-            f_norm = 1, total ++, i ++, j += strlen(utoa(u)); // 设置标志
-            break;
-          /*case '0': // 填充u个0
-            get_num = 1;
-            u = 0;
-            i ++;
-            while(get_num) {
-              if(isdigit(fmt[i])) {
-                u = u * 10 + (fmt[i] - '0');
-              } else {
-                get_num = 0;
-              }
-              putch('n');
+            i= 0;
+            while(str[i] != '\0')
+            {
+              out[j++] = str[i++];
             }
-            while(u) {
-              sprintf_buffer[j] = '0';
-              j ++;
-              u --;
-              putch('u');
+            fmt++;
+            break;  
+          case 'x':  
+            v = va_arg(ap,uint32_t);
+            k = 0;
+            out[j++]='0';
+            out[j++]='x';
+            if(v == 0){
+                out[j++] = '0';
+                fmt++;
+                break;
             }
-            i ++; // 设置标志
-            break; */
-          default: puts("in klib sprintf, not implement '"); putch(fmt[i]); puts("': "); assert(0);
+            while(v != 0)
+            {
+              nums[k++] = v%16 < 10? v%16+'0':'a'+v%16-10;
+              v = v/16;
+            }
+            for(int ii=k-1;ii>=0;ii--){
+              out[j++]=nums[ii];
+            }
+            fmt++;
+            break; 
+          case 'p':
+            v = va_arg(ap,uint32_t);
+            k = 0;
+            out[j++]='0';
+            out[j++]='x';
+            if(v == 0){
+              out[j++] = '0';
+              fmt++;
+              break;
+            }
+            while(v != 0)
+            {
+              nums[k++] = v%16 < 10? v%16+'0':'a'+v%16-10;
+              v = v/16;
+            }
+            for(int ii=k-1;ii>=0;ii--){
+              out[j++]=nums[ii];
+            }
+            fmt++;
+            break;
+          case 'c':
+            out[j++] = va_arg(ap,int);
+            fmt++;
+            break;  
+          default:
+            assert(0);
+          //other fuctions remaining to be realized.
         }
+      } //处理标志符及一个字母中间的数
+      else{
+        out[j++] = *fmt;
+        fmt++;
       }
+      break;
+    default:
+      out[j++] = *fmt;
+      fmt++;
     }
   }
-  strcpy(out, sprintf_buffer);
+  out[j] = '\0';
+  return j;
 
-  return total;
+  //return 0;
+}
+
+int sprintf(char *out, const char *fmt, ...) {
+  va_list ap;
+  int ret = 0;
+  va_start(ap, fmt);
+  ret = vsprintf(out, fmt, ap);
+  va_end(ap);
+  return ret;
 }
 
 int snprintf(char *out, size_t n, const char *fmt, ...) {
