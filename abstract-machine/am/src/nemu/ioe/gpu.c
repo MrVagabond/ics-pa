@@ -7,7 +7,9 @@
 void __am_gpu_init() {
   int i;
   int w = inw(VGACTL_ADDR + 2);
+  printf("width is %d\n", w);
   int h = inw(VGACTL_ADDR);
+  printf("height is %d\n", h);
   uint32_t *fb = (uint32_t *)(uintptr_t)FB_ADDR;
   for(i = 0; i < w * h; i ++) fb[i] = i;
   outl(SYNC_ADDR, 1);
@@ -27,8 +29,8 @@ void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl) {
     void *pixels = ctl->pixels;
     int w = ctl->w, h = ctl->h;
 
-    //assert(0 <= x && x + h < inw(VGACTL_ADDR)); // 矩形的行坐标应该在高度的范围内
-    //assert(0 <= y && y + w < inw(VGACTL_ADDR + 2)); // 矩形的列坐标应该在宽度的范围内
+    assert(0 <= x && x + h < inw(VGACTL_ADDR)); // 矩形的行坐标应该在高度的范围内
+    assert(0 <= y && y + w < inw(VGACTL_ADDR + 2)); // 矩形的列坐标应该在宽度的范围内
     
     uint32_t *fb = (uint32_t *)(uintptr_t)FB_ADDR;
     int i = 0;
