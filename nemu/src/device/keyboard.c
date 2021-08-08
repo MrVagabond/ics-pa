@@ -49,11 +49,11 @@ static void i8042_data_io_handler(uint32_t offset, int len, bool is_write) {
   assert(!is_write);
   assert(offset == 0);
   if (key_f != key_r) {
-    i8042_data_port_base[0] = key_queue[key_f];
+    i8042_data_port_base[0] = key_queue[key_f]; // 如果队列非空，那么表示有一系列按键被依次按下，返回队列中的第一个按键
     key_f = (key_f + 1) % KEY_QUEUE_LEN;
   }
   else {
-    i8042_data_port_base[0] = _KEY_NONE;
+    i8042_data_port_base[0] = _KEY_NONE; // 如果队列为空，那么发送KEY_NONE，表示当前没有按键按下
   }
 }
 

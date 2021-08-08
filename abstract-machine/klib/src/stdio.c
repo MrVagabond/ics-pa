@@ -14,6 +14,8 @@ int puts(const char *str) {
   return 0;
 }
 
+// 以下所有代码参考github.com/WCTPD/ICS2020中的代码
+
 #define MAX_BUF 2048
 
 #define is_digit(ch) ((ch) >= '0' && (ch) <= '9')
