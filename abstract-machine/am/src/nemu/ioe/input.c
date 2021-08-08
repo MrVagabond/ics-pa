@@ -14,5 +14,5 @@ void __am_input_keybrd(AM_INPUT_KEYBRD_T *kbd) {
   // }
   int k = inl(KBD_ADDR);
   kbd->keydown = (k & KEYDOWN_MASK ? true : false);
-  kbd->keycode = k & ~KEYDOWN_MASK;
+  kbd->keycode = k & ~KEYDOWN_MASK; // 手册中说明了keycode始终是断码，也就是低7bit
 }

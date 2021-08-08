@@ -40,6 +40,10 @@ static inline void update_screen() {
 void vga_update_screen() {
   // TODO: call `update_screen()` when the sync register is non-zero,
   // then zero out the sync register
+  if(vgactl_port_base[1]) {
+    update_screen();
+    vgactl_port_base[1] = 0;
+  }
 }
 
 void init_vga() {
@@ -60,10 +64,12 @@ void init_vga() {
 
   vgactl_port_base = (void *)new_space(8);
   vgactl_port_base[0] = ((SCREEN_W) << 16) | (SCREEN_H);
+  vgactl_port_base[1] = 0; // 作为同步寄存器，初值为0，这是由am的框架代码要求的
+  
   add_pio_map("screen", VGACTL_PORT, (void *)vgactl_port_base, 8, NULL);
-  add_mmio_map("screen", VGACTL_MMIO, (void *)vgactl_port_base, 8, NULL);
+  add_mmio_map("screen", VGACTL_MMIO, (void *)vgactl_port_base, 8, NULL); // 注册了宽度和高度
 
   vmem = (void *)new_space(SCREEN_SIZE);
-  add_mmio_map("vmem", VMEM, (void *)vmem, SCREEN_SIZE, NULL);
+  add_mmio_map("vmem", VMEM, (void *)vmem, SCREEN_SIZE, NULL); // 注册了显存
 }
 #endif	/* HAS_IOE */
