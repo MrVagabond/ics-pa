@@ -105,7 +105,17 @@ int isdigit(char c) {
 }
 
 void *malloc(size_t size) {
-  return NULL;
+  static int do_malloc = 0;
+  static void *free_addr = 0;
+  if(!do_malloc) {
+    free_addr = heap.start + size;
+    do_malloc = 1;
+    return (void *)heap.start;
+  } else {
+    free_addr += size;
+    return (void *)(free_addr - size);
+  }
+  assert(0);
 }
 
 void free(void *ptr) {
